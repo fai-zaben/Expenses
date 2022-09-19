@@ -24,7 +24,7 @@ const App = () => {
   ];
 
   const addExpenseHandler = (expense) => {
-    console.log('ni App.js');
+    console.log('in App.js');
     console.log(expense);
   }
 
