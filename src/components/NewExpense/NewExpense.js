@@ -8,6 +8,7 @@ const NewExpense = (props) => {
       id: Math.random().toString(),
     };
     props.onAddExpense(ExpenseData);
+    setIsClicked(false);
   };
 
   const [isClicked, setIsClicked] = useState(false);
@@ -16,12 +17,15 @@ const NewExpense = (props) => {
     setIsClicked(true);
   };
   const cancelHandler = () => {
-    setIsClicked(false)
-  }
+    setIsClicked(false);
+  };
   return (
     <div className="new-expense">
       {isClicked ? (
-        <ExpenseForm onCollectExpenseData={collectExpenseDataHandler} onCancel={cancelHandler}/>
+        <ExpenseForm
+          onCollectExpenseData={collectExpenseDataHandler}
+          onCancel={cancelHandler}
+        />
       ) : (
         <button onClick={clickedHandler}>Add Expense</button>
       )}
