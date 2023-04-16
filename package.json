@@ -15,6 +15,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "lint": "esw webpack.config.* src tools --color",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
