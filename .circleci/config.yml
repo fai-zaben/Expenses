@@ -1,0 +1,47 @@
+version: 2.1
+
+# reusable docker image
+docker-image: &docker-image
+  docker:
+      - image: circleci/node:13.8.0
+
+jobs:
+
+  build:
+    <<: *docker-image
+    steps:
+      - checkout
+      - run: npm i
+      - save_cache:
+          paths:
+            - /src/node_modules
+          key: "npm-packages"
+      - run: npm run lint
+  
+  test:
+    <<: *docker-image
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - "npm-packages"
+      - run: npm i
+      - run: npm run test
+
+  analyze:
+    <<: *docker-image
+    steps:
+      - checkout
+      - run: npm audit
+
+
+workflows:
+  my_workflow:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
+      - analyze:
+          requires:
+            - test
